@@ -1177,6 +1177,10 @@ NEWLINE ("\r"|"\n"|"\r\n")
 	RETURN_TOKEN(T_IF);
 }
 
+<ST_IN_SCRIPTING>"yudofu" {
+	RETURN_TOKEN(T_IF);
+}
+
 <ST_IN_SCRIPTING>"elseif" {
 	RETURN_TOKEN(T_ELSEIF);
 }
@@ -1186,6 +1190,10 @@ NEWLINE ("\r"|"\n"|"\r\n")
 }
 
 <ST_IN_SCRIPTING>"else" {
+	RETURN_TOKEN(T_ELSE);
+}
+
+<ST_IN_SCRIPTING>"cocoiti" {
 	RETURN_TOKEN(T_ELSE);
 }
 
@@ -1202,6 +1210,10 @@ NEWLINE ("\r"|"\n"|"\r\n")
 }
 
 <ST_IN_SCRIPTING>"for" {
+	RETURN_TOKEN(T_FOR);
+}
+
+<ST_IN_SCRIPTING>"👄" {
 	RETURN_TOKEN(T_FOR);
 }
 
@@ -1789,6 +1801,12 @@ string:
 
 
 <INITIAL>"<?php"([ \t]|{NEWLINE}) {
+	HANDLE_NEWLINE(yytext[yyleng-1]);
+	BEGIN(ST_IN_SCRIPTING);
+	RETURN_TOKEN(T_OPEN_TAG);
+}
+
+<INITIAL>"<❤️yuki"([ \t]|{NEWLINE}) {
 	HANDLE_NEWLINE(yytext[yyleng-1]);
 	BEGIN(ST_IN_SCRIPTING);
 	RETURN_TOKEN(T_OPEN_TAG);
